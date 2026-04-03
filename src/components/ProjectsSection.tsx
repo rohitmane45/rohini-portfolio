@@ -165,7 +165,7 @@ const ProjectsSection: React.FC = () => {
                   const target = e.currentTarget;
                   // Prevent infinite loop if fallback is also missing.
                   target.onerror = null;
-                  target.src = '/images/nutribot.png';
+                  target.src = '/images/rohini%20image.jpg';
                 }}
               />
             </motion.div>
