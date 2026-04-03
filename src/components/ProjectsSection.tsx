@@ -54,7 +54,7 @@ const ProjectsSection: React.FC = () => {
       description: 'Built a deep learning framework focused on rapid intensification (RI) prediction for tropical cyclones by fusing oceanic, atmospheric, and satellite signals, improving lead-time insights for early warning and operational decision support.',
       image: '/images/cyclone pic.jpg',
       technologies: ['Deep Learning', 'Tropical Cyclone RI', 'Satellite Data', 'Neural Networks'],
-      githubUrl: 'https://github.com/rohitmane45/Rapid-Intensification-RI-For-Tropical-Cyclone-Tracking-System',
+      githubUrl: 'https://github.com/rohinikale2525/Rapid-Intensification-for-tropical-cyclone-tracking-system',
       liveUrl: '#',
       featured: true,
       color: '#ff6b6b',
@@ -67,7 +67,7 @@ const ProjectsSection: React.FC = () => {
       description: 'Developed a machine learning pipeline to predict movie performance using historical metadata, genre trends, release timing, and cast-related signals to support data-driven production and marketing decisions.',
       image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&h=400&fit=crop',
       technologies: ['Machine Learning', 'Feature Engineering', 'Pandas', 'scikit-learn'],
-      githubUrl: 'https://github.com/rohitmane45/Movie-Success-Prediction-and-Sentiment-Study',
+      githubUrl: 'https://github.com/rohinikale2525/Movie-Success-Prediction-and-Sentiment-Study',
       liveUrl: '#',
       featured: true,
       color: '#f59e0b'
