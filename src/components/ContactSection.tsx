@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Download } from 'lucide-react';
-import { staggerContainer, staggerItem, inputFocusVariants } from '@/lib/animations';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, ExternalLink } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -28,24 +27,20 @@ const ContactSection: React.FC = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     
-    // Create mailto link with form data
     const subject = encodeURIComponent(data.subject);
     const body = encodeURIComponent(
       `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`
     );
     const mailtoLink = `mailto:kalerohini333@gmail.com?subject=${subject}&body=${body}`;
     
-    // Open default email client
     window.location.href = mailtoLink;
     
-    // Simulate form submission delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     setIsSubmitting(false);
     setIsSubmitted(true);
     reset();
     
-    // Reset success message after 3 seconds
     setTimeout(() => setIsSubmitted(false), 3000);
   };
 
@@ -55,21 +50,18 @@ const ContactSection: React.FC = () => {
       label: 'Email',
       value: 'kalerohini333@gmail.com',
       href: 'mailto:kalerohini333@gmail.com',
-      color: '#ea4335'
     },
     {
       icon: Phone,
       label: 'Phone',
       value: '+91 8329158421',
       href: 'tel:+918329158421',
-      color: '#34a853'
     },
     {
       icon: MapPin,
       label: 'Location',
       value: 'Pune, Maharashtra, India',
       href: '#',
-      color: '#4285f4'
     },
   ];
 
@@ -78,114 +70,89 @@ const ContactSection: React.FC = () => {
       icon: Github,
       label: 'GitHub',
       href: 'https://github.com/rohinikale2525',
-      color: '#333'
     },
     {
       icon: Linkedin,
       label: 'LinkedIn',
       href: 'https://linkedin.com/in/rohinikale25',
-      color: '#0077B5'
     },
     {
-      icon: Twitter,
-      label: 'Portfolio Website',
+      icon: ExternalLink,
+      label: 'Portfolio',
       href: 'https://rohinikale.site',
-      color: '#1DA1F2'
     },
   ];
 
   return (
-    <section id="contact" className="py-20 px-4 bg-[var(--neuro-bg-secondary)]">
-      <div className="max-w-6xl mx-auto">
+    <section id="contact" className="py-16 md:py-24 px-4">
+      <div className="max-w-5xl mx-auto">
+        {/* Section Header */}
         <motion.div
           ref={ref}
-          variants={staggerContainer}
-          initial="initial"
-          animate={isInView ? "animate" : "initial"}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.h2 variants={staggerItem} className="text-4xl md:text-5xl font-bold gradient-text mb-6">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[var(--neuro-text-primary)] mb-4">
             Get In Touch
-          </motion.h2>
-          <motion.p variants={staggerItem} className="text-lg text-[var(--neuro-text-secondary)] max-w-3xl mx-auto">
-            Ready to collaborate on exciting projects? Let's connect and build something amazing together. 
-            I'm always open to discussing new opportunities and innovative ideas.
-          </motion.p>
+          </h2>
+          <p className="text-lg text-[var(--neuro-text-secondary)] max-w-2xl mx-auto">
+            Let's collaborate! I'm open to discussing new opportunities, projects, and ideas. Reach out anytime.
+          </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
+          {/* Contact Info */}
           <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="space-y-8"
           >
-            <motion.div variants={staggerItem}>
-              <h3 className="text-2xl font-semibold text-[var(--neuro-text-primary)] mb-6">
+            <div>
+              <h3 className="text-2xl font-semibold text-[var(--neuro-text-primary)] mb-4">
                 Let's Connect
               </h3>
-              <p className="text-[var(--neuro-text-secondary)] mb-8 leading-relaxed">
-                I'm currently pursuing my B.E. in AI & Data Science and actively seeking internship opportunities, 
-                collaboration projects, and freelance work. Whether you have a project idea, job opportunity, 
-                or just want to chat about technology, I'd love to hear from you!
+              <p className="text-[var(--neuro-text-secondary)] leading-relaxed">
+                I'm actively seeking internship opportunities, collaboration projects, and freelance work. 
+                Whether you have a project idea, job opportunity, or just want to chat about technology, I'd love to hear from you!
               </p>
-            </motion.div>
+            </div>
 
-            {/* Contact Info Cards */}
+            {/* Contact Cards - Enhanced */}
             <div className="space-y-4">
               {contactInfo.map((info, index) => {
                 const Icon = info.icon;
                 return (
                   <motion.a
                     key={index}
-                    variants={staggerItem}
                     href={info.href}
-                    whileHover={{ 
-                      scale: 1.02,
-                      boxShadow: `0 10px 25px ${info.color}40`
-                    }}
-                    className="neuro-card p-6 flex items-center space-x-4 block hover:glow-effect transition-all duration-300"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.02, x: 4 }}
+                    className="bg-gradient-to-r from-white/50 to-white/30 dark:from-slate-900/40 dark:to-slate-900/20 rounded-xl p-6 border border-slate-200/60 dark:border-slate-700/60 hover:shadow-lg transition-all duration-300 flex items-center gap-4 backdrop-blur-sm"
                   >
-                    <div className="neuro-button p-3">
-                      <Icon className="w-6 h-6" style={{ color: info.color }} />
-                    </div>
+                    <motion.div 
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--neuro-accent)]/20 to-[var(--neuro-accent)]/10 flex items-center justify-center flex-shrink-0 border border-[var(--neuro-accent)]/20"
+                    >
+                      <Icon className="w-6 h-6 text-[var(--neuro-accent)]" />
+                    </motion.div>
                     <div>
-                      <div className="font-semibold text-[var(--neuro-text-primary)]">
-                        {info.label}
-                      </div>
-                      <div className="text-[var(--neuro-text-secondary)]">
-                        {info.value}
-                      </div>
+                      <p className="text-xs text-[var(--neuro-text-secondary)] tracking-widest uppercase font-semibold">{info.label}</p>
+                      <p className="font-semibold text-[var(--neuro-text-primary)]">{info.value}</p>
                     </div>
                   </motion.a>
                 );
               })}
             </div>
 
-            {/* Resume Download Button */}
-            <motion.div variants={staggerItem} className="pt-6">
-              <motion.a
-                href="/assets/Rohini_Kale_Resume (1).pdf"
-                download="Rohini_Kale_Resume.pdf"
-                whileHover={{ 
-                  scale: 1.05,
-                  boxShadow: '0 15px 30px rgba(102, 126, 234, 0.4)'
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="neuro-button px-6 py-4 text-lg font-medium text-[var(--neuro-text-primary)] glow-effect flex items-center space-x-3 w-full justify-center"
-              >
-                <Download className="w-5 h-5" />
-                <span>Download Resume</span>
-              </motion.a>
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div variants={staggerItem} className="pt-8">
-              <h4 className="text-lg font-semibold text-[var(--neuro-text-primary)] mb-4">
-                Follow Me
-              </h4>
-              <div className="flex space-x-4">
+            {/* Social Links - Enhanced */}
+            <div>
+              <h4 className="text-lg font-semibold text-[var(--neuro-text-primary)] mb-4">Follow Me</h4>
+              <div className="flex gap-4">
                 {socialLinks.map((social, index) => {
                   const Icon = social.icon;
                   return (
@@ -194,160 +161,116 @@ const ContactSection: React.FC = () => {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ 
-                        scale: 1.2, 
-                        y: -5,
-                        boxShadow: `0 10px 25px ${social.color}40`
-                      }}
-                      whileTap={{ scale: 0.9 }}
-                      className="neuro-button p-4 hover:glow-effect transition-all duration-300"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                      transition={{ delay: index * 0.1 }}
+                      whileHover={{ scale: 1.15, y: -4 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--neuro-accent)]/20 to-[var(--neuro-accent)]/10 border-2 border-[var(--neuro-accent)]/30 flex items-center justify-center hover:shadow-lg transition-all duration-300 hover:border-[var(--neuro-accent)]/60"
                       aria-label={social.label}
                     >
-                      <Icon className="w-6 h-6" style={{ color: social.color }} />
+                      <Icon className="w-6 h-6 text-[var(--neuro-accent)]" />
                     </motion.a>
                   );
                 })}
               </div>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Contact Form */}
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
+          <motion.form
+            initial={{ opacity: 0, x: 20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-6"
           >
-            <motion.div variants={staggerItem} className="neuro-card p-8">
-              <h3 className="text-2xl font-semibold text-[var(--neuro-text-primary)] mb-6">
-                Send a Message
-              </h3>
+            {/* Name */}
+            <div>
+              <label className="block text-sm font-semibold text-[var(--neuro-text-primary)] mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                placeholder="Your name"
+                {...register('name', { required: 'Name is required' })}
+                className="w-full px-4 py-3 rounded-lg bg-white/50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-700/50 text-[var(--neuro-text-primary)] placeholder-[var(--neuro-text-secondary)] focus:outline-none focus:border-[var(--neuro-accent)] focus:ring-2 focus:ring-[var(--neuro-accent)]/10 transition-all duration-300"
+              />
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+            </div>
 
-              {isSubmitted && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-6 p-4 neuro-inset rounded-lg"
-                >
-                  <p className="text-[var(--neuro-success)] font-medium">
-                    Thank you! Your message has been sent successfully.
-                  </p>
-                </motion.div>
-              )}
+            {/* Email */}
+            <div>
+              <label className="block text-sm font-semibold text-[var(--neuro-text-primary)] mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                placeholder="your.email@example.com"
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'Invalid email' }
+                })}
+                className="w-full px-4 py-3 rounded-lg bg-white/50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-700/50 text-[var(--neuro-text-primary)] placeholder-[var(--neuro-text-secondary)] focus:outline-none focus:border-[var(--neuro-accent)] focus:ring-2 focus:ring-[var(--neuro-accent)]/10 transition-all duration-300"
+              />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+            </div>
 
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <motion.div variants={staggerItem}>
-                    <label className="block text-sm font-medium text-[var(--neuro-text-primary)] mb-2">
-                      Name *
-                    </label>
-                    <motion.input
-                      variants={inputFocusVariants}
-                      whileFocus="focus"
-                      initial="rest"
-                      {...register('name', { required: 'Name is required' })}
-                      className="w-full px-4 py-3 neuro-inset rounded-lg bg-transparent text-[var(--neuro-text-primary)] focus:outline-none"
-                      placeholder="Your name"
-                    />
-                    {errors.name && (
-                      <p className="mt-1 text-sm text-[var(--neuro-error)]">
-                        {errors.name.message}
-                      </p>
-                    )}
-                  </motion.div>
+            {/* Subject */}
+            <div>
+              <label className="block text-sm font-semibold text-[var(--neuro-text-primary)] mb-2">
+                Subject
+              </label>
+              <input
+                type="text"
+                placeholder="What is this about?"
+                {...register('subject', { required: 'Subject is required' })}
+                className="w-full px-4 py-3 rounded-lg bg-white/50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-700/50 text-[var(--neuro-text-primary)] placeholder-[var(--neuro-text-secondary)] focus:outline-none focus:border-[var(--neuro-accent)] focus:ring-2 focus:ring-[var(--neuro-accent)]/10 transition-all duration-300"
+              />
+              {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject.message}</p>}
+            </div>
 
-                  <motion.div variants={staggerItem}>
-                    <label className="block text-sm font-medium text-[var(--neuro-text-primary)] mb-2">
-                      Email *
-                    </label>
-                    <motion.input
-                      variants={inputFocusVariants}
-                      whileFocus="focus"
-                      initial="rest"
-                      type="email"
-                      {...register('email', {
-                        required: 'Email is required',
-                        pattern: {
-                          value: /^\S+@\S+$/i,
-                          message: 'Invalid email address',
-                        },
-                      })}
-                      className="w-full px-4 py-3 neuro-inset rounded-lg bg-transparent text-[var(--neuro-text-primary)] focus:outline-none"
-                      placeholder="your.email@example.com"
-                    />
-                    {errors.email && (
-                      <p className="mt-1 text-sm text-[var(--neuro-error)]">
-                        {errors.email.message}
-                      </p>
-                    )}
-                  </motion.div>
-                </div>
+            {/* Message */}
+            <div>
+              <label className="block text-sm font-semibold text-[var(--neuro-text-primary)] mb-2">
+                Message
+              </label>
+              <textarea
+                rows={5}
+                placeholder="Your message here..."
+                {...register('message', { required: 'Message is required' })}
+                className="w-full px-4 py-3 rounded-lg bg-white/50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-slate-700/50 text-[var(--neuro-text-primary)] placeholder-[var(--neuro-text-secondary)] focus:outline-none focus:border-[var(--neuro-accent)] focus:ring-2 focus:ring-[var(--neuro-accent)]/10 transition-all duration-300 resize-none"
+              />
+              {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
+            </div>
 
-                <motion.div variants={staggerItem}>
-                  <label className="block text-sm font-medium text-[var(--neuro-text-primary)] mb-2">
-                    Subject *
-                  </label>
-                  <motion.input
-                    variants={inputFocusVariants}
-                    whileFocus="focus"
-                    initial="rest"
-                    {...register('subject', { required: 'Subject is required' })}
-                    className="w-full px-4 py-3 neuro-inset rounded-lg bg-transparent text-[var(--neuro-text-primary)] focus:outline-none"
-                    placeholder="What's this about?"
-                  />
-                  {errors.subject && (
-                    <p className="mt-1 text-sm text-[var(--neuro-error)]">
-                      {errors.subject.message}
-                    </p>
-                  )}
-                </motion.div>
+            {/* Submit Button - Enhanced */}
+            <motion.button
+              type="submit"
+              disabled={isSubmitting}
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full px-6 py-3 bg-[var(--neuro-accent)] text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                boxShadow: '0 12px 40px rgba(102, 126, 234, 0.3)',
+              }}
+            >
+              <Send className="w-5 h-5" />
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </motion.button>
 
-                <motion.div variants={staggerItem}>
-                  <label className="block text-sm font-medium text-[var(--neuro-text-primary)] mb-2">
-                    Message *
-                  </label>
-                  <motion.textarea
-                    variants={inputFocusVariants}
-                    whileFocus="focus"
-                    initial="rest"
-                    {...register('message', { required: 'Message is required' })}
-                    rows={5}
-                    className="w-full px-4 py-3 neuro-inset rounded-lg bg-transparent text-[var(--neuro-text-primary)] focus:outline-none resize-none"
-                    placeholder="Tell me about your project or opportunity..."
-                  />
-                  {errors.message && (
-                    <p className="mt-1 text-sm text-[var(--neuro-error)]">
-                      {errors.message.message}
-                    </p>
-                  )}
-                </motion.div>
-
-                <motion.div variants={staggerItem}>
-                  <motion.button
-                    type="submit"
-                    disabled={isSubmitting}
-                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                    className={`w-full neuro-button px-6 py-4 text-lg font-medium text-[var(--neuro-text-primary)] flex items-center justify-center space-x-2 ${
-                      isSubmitting ? 'opacity-70 cursor-not-allowed' : 'glow-effect'
-                    }`}
-                  >
-                    {isSubmitting ? (
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                        className="w-5 h-5 border-2 border-[var(--neuro-accent)] border-t-transparent rounded-full"
-                      />
-                    ) : (
-                      <>
-                        <Send className="w-5 h-5" />
-                        <span>Send Message</span>
-                      </>
-                    )}
-                  </motion.button>
-                </motion.div>
-              </form>
-            </motion.div>
-          </motion.div>
+            {/* Success Message */}
+            {isSubmitted && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="p-4 bg-green-100 dark:bg-green-900/30 border border-green-400 dark:border-green-700 rounded-lg text-green-700 dark:text-green-300 text-center"
+              >
+                ✓ Thank you! Your message has been sent. I'll get back to you soon!
+              </motion.div>
+            )}
+          </motion.form>
         </div>
       </div>
     </section>

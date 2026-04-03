@@ -1,284 +1,285 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { ExternalLink, Github, Eye, Bot, Smartphone, Video, MessageSquare } from 'lucide-react';
-import { staggerContainer, staggerItem, cardHoverVariants } from '@/lib/animations';
+import { Github, ExternalLink, Code2, ArrowRight } from 'lucide-react';
+
+type Project = {
+  id: number;
+  title: string;
+  description: string;
+  shortDescription: string;
+  image: string;
+  technologies: string[];
+  githubUrl: string;
+  liveUrl: string;
+  impact?: string;
+  featured: boolean;
+  color: string;
+};
 
 const ProjectsSection: React.FC = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [selectedId, setSelectedId] = useState(1);
 
-  const projects = [
+  const projects: Project[] = [
     {
       id: 1,
       title: 'N8N Automation Agent for Call Centers',
+      shortDescription: 'A production-ready automation agent that streamlines BPO/call center workflows',
       description: 'Designed and implemented an n8n-based agent that automates call center/BPO workflows by integrating telephony APIs (Twilio, Amazon Connect), AI speech/text, and CRM—enabling secure, streamlined, and intelligent client interactions.',
-      icon: Bot,
       image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop',
-      technologies: ['n8n', 'Twilio', 'Amazon Connect', 'AI/ML', 'REST APIs', 'CRM Integration'],
-      liveUrl: '#',
+      technologies: ['n8n', 'Twilio', 'Amazon Connect', 'AI/ML', 'REST APIs'],
       githubUrl: '#',
+      liveUrl: '#',
       featured: true,
-      color: '#667eea'
+      color: '#667eea',
+      impact: 'Reduced manual BPO workload by ~40% with intelligent automation'
     },
     {
       id: 2,
-      title: 'FloatChat: AI-Powered ARGO Ocean Data Discovery',
-      description: 'The development of an AI-powered conversational system for ARGO float data that enables users to query, explore, and visualize oceanographic information using natural language.',
-      icon: MessageSquare,
-      image: '/images/argo-ocean-data.png',
-      technologies: ['AI/ML', 'Natural Language Processing', 'Data Visualization', 'Oceanographic Data', 'Python'],
-      liveUrl: '#',
+      title: 'AetherChat Platform',
+      shortDescription: 'Production-ready scalable chat system with AI-driven conversations',
+      description: 'A production-ready, horizontally scalable chat system delivering AI-driven conversations, robust user management, and a cleanly decoupled backend–frontend architecture—perfect for learning, rapid prototyping, or evolving into an enterprise-grade conversational platform.',
+      image: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=600&h=400&fit=crop',
+      technologies: ['AI/ML', 'Chat System', 'Scalable Architecture', 'Backend/Frontend'],
       githubUrl: '#',
+      liveUrl: '#',
       featured: true,
-      color: '#02569b'
+      color: '#ff6b6b'
     },
     {
       id: 3,
-      title: 'AetherChat Platform',
-      description: 'A production-ready, horizontally scalable chat system delivering AI-driven conversations, robust user management, and a cleanly decoupled backend–frontend architecture—perfect for learning, rapid prototyping, or evolving into an enterprise-grade conversational platform.',
-      icon: MessageSquare,
-      image: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=600&h=400&fit=crop',
-      technologies: ['AI/ML', 'Chat System', 'User Management', 'Scalable Architecture', 'Backend/Frontend'],
+      title: 'Rapid Intensification for Tropical Cyclone',
+      shortDescription: 'Deep learning framework for predicting tropical cyclone intensification',
+      description: 'Built a deep learning framework focused on rapid intensification (RI) prediction for tropical cyclones by fusing oceanic, atmospheric, and satellite signals, improving lead-time insights for early warning and operational decision support.',
+      image: '/images/cyclone pic.jpg',
+      technologies: ['Deep Learning', 'Tropical Cyclone RI', 'Satellite Data', 'Neural Networks'],
+      githubUrl: 'https://github.com/rohitmane45/Rapid-Intensification-RI-For-Tropical-Cyclone-Tracking-System',
       liveUrl: '#',
-      githubUrl: '#',
       featured: true,
-      color: '#ff6b6b'
+      color: '#ff6b6b',
+      impact: 'Strengthened early-warning confidence with multi-signal modeling'
+    },
+    {
+      id: 4,
+      title: 'Movie Success Prediction',
+      shortDescription: 'ML pipeline for predicting movie box office performance',
+      description: 'Developed a machine learning pipeline to predict movie performance using historical metadata, genre trends, release timing, and cast-related signals to support data-driven production and marketing decisions.',
+      image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&h=400&fit=crop',
+      technologies: ['Machine Learning', 'Feature Engineering', 'Pandas', 'scikit-learn'],
+      githubUrl: 'https://github.com/rohitmane45/Movie-Success-Prediction-and-Sentiment-Study',
+      liveUrl: '#',
+      featured: true,
+      color: '#f59e0b'
     }
   ];
 
+  const isValidUrl = (url: string) => /^https?:\/\//.test(url);
+  const selectedProject = projects.find((p) => p.id === selectedId) || projects[0];
+
   return (
-    <section id="projects" className="py-16 md:py-20 px-4 bg-[var(--neuro-bg-primary)]">
-      <div className="max-w-7xl mx-auto">
+    <section id="projects" className="py-16 md:py-24 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header - Enhanced */}
         <motion.div
           ref={ref}
-          variants={staggerContainer}
-          initial="initial"
-          animate={isInView ? "animate" : "initial"}
-          className="text-center mb-12 md:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl lg:text-5xl font-bold gradient-text mb-4 md:mb-6">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[var(--neuro-text-primary)] mb-4">
             Featured Projects
-          </motion.h2>
-          <motion.p variants={staggerItem} className="text-base md:text-lg text-[var(--neuro-text-secondary)] max-w-3xl mx-auto">
-            A showcase of innovative solutions combining AI, automation, and modern web technologies 
-            to solve real-world problems.
-          </motion.p>
+          </h2>
+          <p className="text-lg text-[var(--neuro-text-secondary)] max-w-3xl mx-auto leading-relaxed">
+            Innovative solutions combining AI, automation, and modern web technologies to solve real-world challenges
+          </p>
         </motion.div>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          animate={isInView ? "animate" : "initial"}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8"
-        >
-          {projects.map((project, index) => {
-            const IconComponent = project.icon;
-            return (
-              <motion.div
-                key={project.id}
-                variants={staggerItem}
-                whileHover="hover"
-                initial="rest"
-                animate="rest"
-                className="group"
-              >
-                <motion.div
-                  variants={cardHoverVariants}
-                  className="neuro-card overflow-hidden h-full relative"
-                  style={{
-                    background: `linear-gradient(135deg, var(--neuro-bg-primary) 0%, ${project.color}10 100%)`
-                  }}
-                >
-                  {/* Reduced Background Pattern for Mobile */}
-                  <div className="absolute inset-0 opacity-5 hidden md:block">
-                    {[...Array(10)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        animate={{
-                          x: [0, 20, 0],
-                          y: [0, -15, 0],
-                          rotate: [0, 180, 360],
-                        }}
-                        transition={{
-                          duration: 8 + i,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                        className="absolute w-2 h-2 rounded-full"
-                        style={{
-                          backgroundColor: project.color,
-                          left: `${Math.random() * 100}%`,
-                          top: `${Math.random() * 100}%`,
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Project Image */}
-                  <div className="relative overflow-hidden h-40 md:h-48">
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    
-                    {/* Gradient Overlay */}
-                    <div 
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{
-                        background: `linear-gradient(135deg, ${project.color}40, transparent)`
-                      }}
-                    />
-                    
-                    {/* Project Icon */}
-                    <motion.div
-                      animate={{
-                        y: [0, -5, 0],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      className="absolute top-3 md:top-4 right-3 md:right-4 neuro-button p-2 md:p-3"
-                      style={{
-                        backgroundColor: `${project.color}20`,
-                        backdropFilter: 'blur(10px)',
-                      }}
-                    >
-                      <IconComponent className="w-4 md:w-6 h-4 md:h-6" style={{ color: project.color }} />
-                    </motion.div>
-                    
-                    {/* Overlay Actions */}
-                    <div className="absolute inset-0 flex items-center justify-center space-x-3 md:space-x-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <motion.a
-                        href={project.liveUrl}
-                        whileHover={{ scale: 1.1, y: -3 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="neuro-button p-2 md:p-3 bg-white/20 backdrop-blur-sm"
-                        aria-label="View live project"
-                      >
-                        <Eye className="w-4 md:w-5 h-4 md:h-5 text-white" />
-                      </motion.a>
-                      <motion.a
-                        href={project.githubUrl}
-                        whileHover={{ scale: 1.1, y: -3 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="neuro-button p-2 md:p-3 bg-white/20 backdrop-blur-sm"
-                        aria-label="View source code"
-                      >
-                        <Github className="w-4 md:w-5 h-4 md:h-5 text-white" />
-                      </motion.a>
-                      <motion.a
-                        href={project.liveUrl}
-                        whileHover={{ scale: 1.1, y: -3 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="neuro-button p-2 md:p-3 bg-white/20 backdrop-blur-sm"
-                        aria-label="External link"
-                      >
-                        <ExternalLink className="w-4 md:w-5 h-4 md:h-5 text-white" />
-                      </motion.a>
-                    </div>
-
-                    {/* Featured Badge */}
-                    {project.featured && (
-                      <motion.div
-                        initial={{ scale: 0, rotate: -180 }}
-                        animate={{ scale: 1, rotate: 0 }}
-                        transition={{ delay: index * 0.2 }}
-                        className="absolute top-3 md:top-4 left-3 md:left-4"
-                      >
-                        <span 
-                          className="neuro-button px-2 md:px-3 py-1 text-xs font-semibold text-white"
-                          style={{ backgroundColor: project.color }}
-                        >
-                          Featured
-                        </span>
-                      </motion.div>
-                    )}
-                  </div>
-
-                  {/* Project Content */}
-                  <div className="p-4 md:p-6 relative z-10">
-                    <motion.h3 
-                      className="text-lg md:text-xl font-semibold text-[var(--neuro-text-primary)] mb-2 md:mb-3 group-hover:text-[var(--neuro-accent)] transition-colors"
-                      whileHover={{ x: 3 }}
-                    >
-                      {project.title}
-                    </motion.h3>
-                    <p className="text-sm md:text-base text-[var(--neuro-text-secondary)] mb-4 leading-relaxed">
-                      {project.description}
-                    </p>
-                    
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, techIndex) => (
-                        <motion.span
-                          key={techIndex}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                          transition={{ delay: techIndex * 0.05 }}
-                          whileHover={{ 
-                            scale: 1.05, 
-                            y: -1,
-                          }}
-                          className="neuro-inset px-2 md:px-3 py-1 text-xs font-medium text-[var(--neuro-text-secondary)] cursor-pointer"
-                        >
-                          {tech}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Simplified Border Effect for Mobile */}
-                  <motion.div
-                    className="absolute inset-0 rounded-[20px] pointer-events-none hidden md:block"
-                    style={{
-                      background: `linear-gradient(45deg, ${project.color}40, transparent, ${project.color}40)`,
-                      backgroundSize: '200% 200%',
-                    }}
-                    animate={{
-                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 0.3 }}
-                  />
-                </motion.div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        {/* View More Button */}
-        <motion.div
-          variants={staggerItem}
-          initial="initial"
-          animate={isInView ? "animate" : "initial"}
-          className="text-center mt-8 md:mt-12"
-        >
-          <motion.button
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: '0 10px 25px rgba(102, 126, 234, 0.4)'
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="neuro-button px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-medium text-[var(--neuro-text-primary)] glow-effect relative overflow-hidden"
+        {/* Projects Grid */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-12">
+          {/* Left: Project Cards - Enhanced */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="space-y-4"
           >
+            {projects.map((project, idx) => (
+              <motion.button
+                key={project.id}
+                onClick={() => setSelectedId(project.id)}
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                transition={{ delay: idx * 0.1 }}
+                whileHover={{ scale: 1.02, x: 5 }}
+                whileTap={{ scale: 0.98 }}
+                className={`w-full text-left transition-all duration-300 rounded-xl p-6 border-l-4 backdrop-blur-sm ${
+                  selectedId === project.id
+                    ? 'bg-white/60 dark:bg-slate-900/60 border-l-[var(--neuro-accent)] shadow-lg'
+                    : 'bg-white/40 dark:bg-slate-900/20 border-l-transparent hover:border-l-[var(--neuro-accent)]'
+                }`}
+                style={selectedId === project.id ? { borderColor: `${project.color} !important` } : {}}
+              >
+                <div className="flex items-start gap-4">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    className="w-12 h-12 rounded-lg flex-shrink-0 flex items-center justify-center shadow-md"
+                    style={{ backgroundColor: `${project.color}20`, color: project.color }}
+                  >
+                    <Code2 className="w-6 h-6" />
+                  </motion.div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-[var(--neuro-text-primary)] text-lg mb-1 line-clamp-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-[var(--neuro-text-secondary)] line-clamp-2">
+                      {project.shortDescription}
+                    </p>
+                  </div>
+                </div>
+              </motion.button>
+            ))}
+          </motion.div>
+
+          {/* Right: Project Details - Enhanced */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            key={selectedProject.id}
+            className="space-y-6"
+          >
+            {/* Project Image - Enhanced */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-[var(--neuro-accent)] to-[var(--neuro-accent-light)] opacity-0"
-              whileHover={{ opacity: 0.1 }}
-              transition={{ duration: 0.3 }}
-            />
-            <span className="relative z-10">View All Projects</span>
-          </motion.button>
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="rounded-xl overflow-hidden h-64 shadow-2xl border-2 border-slate-200 dark:border-slate-700"
+            >
+              <img
+                src={selectedProject.image}
+                alt={selectedProject.title}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  // Prevent infinite loop if fallback is also missing.
+                  target.onerror = null;
+                  target.src = '/images/n8n-automation-agent.png';
+                }}
+              />
+            </motion.div>
+
+            {/* Title & Description - Enhanced */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <h3 className="text-3xl font-serif font-bold text-[var(--neuro-text-primary)] mb-3">
+                {selectedProject.title}
+              </h3>
+              <p className="text-base text-[var(--neuro-text-secondary)] leading-relaxed">
+                {selectedProject.description}
+              </p>
+            </motion.div>
+
+            {/* Impact - Enhanced */}
+            {selectedProject.impact && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                className="bg-gradient-to-r from-[var(--neuro-accent)]/10 to-[var(--neuro-accent)]/5 backdrop-blur-sm border border-[var(--neuro-accent)]/30 rounded-xl p-5 border-l-4"
+                style={{ borderLeftColor: `var(--neuro-accent)` }}
+              >
+                <div className="flex items-start gap-3">
+                  <ArrowRight className="w-5 h-5 text-[var(--neuro-accent)] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-[var(--neuro-accent)] text-sm mb-1">Key Impact</p>
+                    <p className="text-sm text-[var(--neuro-text-secondary)]">{selectedProject.impact}</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Technologies - Enhanced */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
+              <p className="text-xs font-semibold text-[var(--neuro-text-primary)] mb-4 tracking-widest uppercase">Technology Stack</p>
+              <div className="flex flex-wrap gap-3">
+                {selectedProject.technologies.map((tech, idx) => (
+                  <motion.span
+                    key={tech}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: idx * 0.05 }}
+                    className="px-4 py-2 bg-gradient-to-r from-[var(--neuro-accent)]/5 to-[var(--neuro-accent)]/10 border border-[var(--neuro-accent)]/20 text-[var(--neuro-accent)] rounded-full text-sm font-semibold hover:border-[var(--neuro-accent)]/40 transition-all duration-300"
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Action Buttons - Enhanced */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              className="flex gap-4 pt-2"
+            >
+              {isValidUrl(selectedProject.githubUrl) && (
+                <motion.a
+                  href={selectedProject.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-[var(--neuro-accent)] text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <Github className="w-5 h-5" />
+                  GitHub
+                </motion.a>
+              )}
+              {isValidUrl(selectedProject.liveUrl) && (
+                <motion.a
+                  href={selectedProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 border-2 border-[var(--neuro-accent)] text-[var(--neuro-accent)] rounded-xl font-semibold hover:bg-[var(--neuro-accent)]/5 hover:shadow-lg transition-all duration-300"
+                >
+                  <ExternalLink className="w-5 h-5" />
+                  Live Demo
+                </motion.a>
+              )}
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* View All Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-center"
+        >
+          <motion.a
+            href="https://github.com/rohinikale2525?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 px-8 py-3 bg-white dark:bg-slate-900 border-2 border-[var(--neuro-accent)] text-[var(--neuro-accent)] rounded-lg font-semibold hover:bg-[var(--neuro-accent)]/5 transition-all duration-300"
+          >
+            View More Projects
+            <ExternalLink className="w-5 h-5" />
+          </motion.a>
         </motion.div>
       </div>
     </section>

@@ -23,13 +23,23 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    const savedTheme = localStorage.getItem('portfolio-theme') as Theme;
-    return savedTheme || 'light';
+    const savedTheme = localStorage.getItem('portfolio-theme') as Theme | null;
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+
+    return 'light';
   });
 
   useEffect(() => {
     const root = document.documentElement;
     root.setAttribute('data-theme', theme);
+    root.classList.toggle('dark', theme === 'dark');
+    root.style.colorScheme = theme;
     localStorage.setItem('portfolio-theme', theme);
   }, [theme]);
 

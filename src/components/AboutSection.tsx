@@ -1,267 +1,231 @@
 import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Code2, Palette, Rocket, Users, GraduationCap, Calendar, Heart, Target, Cloud, Bot } from 'lucide-react';
-import { staggerContainer, staggerItem, progressVariants } from '@/lib/animations';
+import { Code2, Palette, Rocket, Cloud, Bot, GraduationCap, Calendar, Award } from 'lucide-react';
 
 const AboutSection: React.FC = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const skills = [
-    { name: 'Python & AI/ML', percentage: 95, icon: Code2, color: '#3776ab' },
-    { name: 'JavaScript & Web Dev', percentage: 85, icon: Users, color: '#f7df1e' },
-    { name: 'Flutter & Dart', percentage: 90, icon: Rocket, color: '#02569b' },
-    { name: 'Data Science', percentage: 90, icon: Palette, color: '#ff6b35' },
-    { name: 'n8n & Automation', percentage: 85, icon: Cloud, color: '#ff9900' },
-  ];
-
-  const techStack = [
-    'Languages/Frameworks:',
-    'C++', 'Python', 'JavaScript', 'Dart', 'Flutter', 'HTML', 'CSS',
-    'Tech/Tools:',
-    'AI/ML (TensorFlow, scikit-learn)', 'Google Vision (OCR)',
-    'n8n', 'REST APIs', 'Git', 'SQL', 'Data Visualization'
+    { name: 'Python & AI/ML', icon: Code2, color: '#3776ab' },
+    { name: 'JavaScript & Web', icon: Palette, color: '#f7df1e' },
+    { name: 'Flutter & Mobile', icon: Rocket, color: '#02569b' },
+    { name: 'Data Science', icon: Palette, color: '#ff6b35' },
+    { name: 'Automation & n8n', icon: Cloud, color: '#ff9900' },
   ];
 
   const education = [
     {
-      degree: 'B.E. Artificial Intelligence & Data Science',
-      institution: 'Savitribai Phule Pune University (SPPU)',
+      degree: 'B.E. AI & Data Science',
+      institution: 'Savitribai Phule Pune University',
       year: '2024-2027',
       cgpa: '9.59 CGPA',
       status: 'Current'
     },
     {
-      degree: 'Higher Secondary Certificate (HSC)',
-      institution: 'J.E.SCH. Junior College - Muktainagar, Jalgaon',
+      degree: 'Higher Secondary (HSC)',
+      institution: 'J.E.SCH. Junior College',
       year: '2023',
-      cgpa: '86%',
-      status: 'Completed'
-    },
-    {
-      degree: 'Secondary School Certificate (SSC)',
-      institution: 'J.E.SCH. Junior College - Muktainagar, Jalgaon',
-      year: '2021',
-      cgpa: '95.40%',
-      status: 'Completed'
+      cgpa: '86%'
     }
   ];
 
-  const funFacts = [
-    { icon: Target, text: 'Automation Enthusiast', color: '#667eea' },
-    { icon: Heart, text: 'Flutter Developer', color: '#02569b' },
-    { icon: Bot, text: 'AI/ML Specialist', color: '#4facfe' },
-    { icon: Code2, text: 'Data Science Intern', color: '#43e97b' }
+  const achievements = [
+    { label: 'Data Science Intern', detail: 'CodeWithHarry', icon: Code2 },
+    { label: 'Katalyst Scholar', detail: 'Women in STEM', icon: Award },
+    { label: 'Business Associate', detail: 'Health-Tech Startup', icon: Rocket },
+    { label: 'Technical Member', detail: 'Byteminds NGO', icon: Bot },
+  ];
+
+  const techStack = [
+    'Python', 'JavaScript', 'Dart', 'Flutter', 'TensorFlow', 'scikit-learn',
+    'n8n', 'REST APIs', 'SQL', 'React', 'TypeScript', 'Google Vision'
   ];
 
   return (
-    <section id="about" className="py-16 md:py-20 px-4 bg-[var(--neuro-bg-secondary)]">
+    <section id="about" className="py-16 md:py-24 px-4">
       <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
         <motion.div
           ref={ref}
-          variants={staggerContainer}
-          initial="initial"
-          animate={isInView ? "animate" : "initial"}
-          className="text-center mb-12 md:mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl lg:text-5xl font-bold gradient-text mb-4 md:mb-6">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[var(--neuro-text-primary)] mb-4">
             About Me
-          </motion.h2>
-          <motion.p variants={staggerItem} className="text-base md:text-lg text-[var(--neuro-text-secondary)] max-w-3xl mx-auto">
-            Passionate AI/Data Science student with hands-on experience in automation, mobile development, 
-            and creating innovative solutions that bridge technology and real-world applications. Currently pursuing B.E. in AI & Data Science with a 9.59 CGPA.
-          </motion.p>
+          </h2>
+          <p className="text-lg text-[var(--neuro-text-secondary)] max-w-2xl mx-auto">
+            Passionate AI/Data Science student passionate about building intelligent solutions that solve real-world problems through automation and machine learning.
+          </p>
         </motion.div>
 
-        {/* Education Section */}
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          animate={isInView ? "animate" : "initial"}
-          className="mb-12 md:mb-16"
-        >
-          <motion.h3 variants={staggerItem} className="text-xl md:text-2xl font-semibold text-[var(--neuro-text-primary)] mb-6 md:mb-8 text-center">
-            Education
-          </motion.h3>
-          
-          <div className="space-y-4">
+        {/* Main Grid */}
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          {/* Column 1: About Text - Enhanced */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:col-span-1 space-y-4"
+          >
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              className="bg-gradient-to-br from-white/60 to-white/40 dark:from-slate-900/40 dark:to-slate-900/20 rounded-2xl p-6 md:p-8 border border-slate-200/60 dark:border-slate-700/60 hover:shadow-lg transition-all duration-300 backdrop-blur-sm"
+            >
+              <p className="text-[var(--neuro-text-secondary)] leading-relaxed text-sm md:text-base mb-4">
+                I'm a B.E. student in Artificial Intelligence & Data Science at SPPU with a 9.59 CGPA, specializing in building intelligent automation solutions and AI-powered platforms.
+              </p>
+              <p className="text-[var(--neuro-text-secondary)] leading-relaxed text-sm md:text-base">
+                My work spans n8n automation agents, Flutter development with AI integration, deep learning models for weather prediction, and scalable backend architectures.
+              </p>
+            </motion.div>
+          </motion.div>
+
+          {/* Column 2: Education */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-1 space-y-4"
+          >
+            <h3 className="text-xl font-semibold text-[var(--neuro-text-primary)] mb-6">Education</h3>
             {education.map((edu, index) => (
-              <motion.div
-                key={index}
-                variants={staggerItem}
-                whileHover={{ scale: 1.02 }}
-                className="neuro-card p-6 md:p-8"
+              <motion.div 
+                key={index} 
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.02, x: 4 }}
+                className="bg-gradient-to-r from-white/50 to-white/30 dark:from-slate-900/40 dark:to-slate-900/20 rounded-xl p-4 border border-left-accent transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
+                style={{
+                  borderLeft: '4px solid var(--neuro-accent)',
+                  borderColor: 'var(--neuro-accent)',
+                  borderTop: '1px solid rgba(102, 126, 234, 0.2)',
+                  borderRight: '1px solid rgba(102, 126, 234, 0.2)',
+                  borderBottom: '1px solid rgba(102, 126, 234, 0.2)',
+                }}
               >
-                <div className="flex flex-col md:flex-row md:items-start space-y-4 md:space-y-0 md:space-x-4">
-                  <div className="neuro-button p-3 mx-auto md:mx-0 w-fit">
-                    <GraduationCap className="w-6 md:w-8 h-6 md:h-8 text-[var(--neuro-accent)]" />
-                  </div>
-                  <div className="flex-1 text-center md:text-left">
-                    <h4 className="text-lg md:text-xl font-semibold text-[var(--neuro-text-primary)] mb-2">
+                <div className="flex gap-3 mb-2">
+                  <GraduationCap className="w-5 h-5 text-[var(--neuro-accent)] flex-shrink-0 mt-1" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-[var(--neuro-text-primary)] text-sm md:text-base">
                       {edu.degree}
                     </h4>
-                    <p className="text-[var(--neuro-text-secondary)] mb-2">{edu.institution}</p>
-                    <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm">
-                      <span className="flex items-center space-x-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{edu.year}</span>
-                      </span>
-                      <span className="neuro-inset px-3 py-1 rounded-full font-medium gradient-text">
-                        {edu.cgpa}
-                      </span>
-                      <span className={`neuro-inset px-3 py-1 rounded-full ${
-                        edu.status === 'Current' ? 'text-[var(--neuro-success)]' : 'text-[var(--neuro-text-secondary)]'
-                      }`}>
-                        {edu.status}
-                      </span>
-                    </div>
+                    <p className="text-xs md:text-sm text-[var(--neuro-text-secondary)] mt-1">
+                      {edu.institution}
+                    </p>
                   </div>
+                </div>
+                <div className="flex flex-wrap gap-2 ml-8 text-xs">
+                  <span className="text-[var(--neuro-text-secondary)]">{edu.year}</span>
+                  <span className="text-[var(--neuro-accent)] font-semibold">{edu.cgpa}</span>
+                  {edu.status && <span className="text-green-600 dark:text-green-400 font-semibold">{edu.status}</span>}
                 </div>
               </motion.div>
             ))}
-          </div>
-        </motion.div>
+          </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-start">
-          {/* Skills Section */}
+          {/* Column 3: Achievements */}
           <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
-            className="space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="lg:col-span-1 space-y-4"
           >
-            <motion.h3 variants={staggerItem} className="text-xl md:text-2xl font-semibold text-[var(--neuro-text-primary)] mb-6">
-              Core Skills
-            </motion.h3>
-            
+            <h3 className="text-xl font-semibold text-[var(--neuro-text-primary)] mb-6">Current Roles</h3>
+            {achievements.map((achievement, index) => {
+              const Icon = achievement.icon;
+              return (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02, x: 4 }}
+                  className="bg-gradient-to-r from-white/50 to-white/30 dark:from-slate-900/40 dark:to-slate-900/20 rounded-xl p-4 border border-left-accent transition-all duration-300 hover:shadow-lg backdrop-blur-sm"
+                  style={{
+                    borderLeft: '4px solid var(--neuro-accent)',
+                    borderColor: 'var(--neuro-accent)',
+                    borderTop: '1px solid rgba(102, 126, 234, 0.2)',
+                    borderRight: '1px solid rgba(102, 126, 234, 0.2)',
+                    borderBottom: '1px solid rgba(102, 126, 234, 0.2)',
+                  }}
+                >
+                  <div className="flex gap-3">
+                    <Icon className="w-5 h-5 text-[var(--neuro-accent)] flex-shrink-0 mt-1" />
+                    <div className="flex-1">
+                      <p className="font-semibold text-[var(--neuro-text-primary)] text-sm md:text-base">
+                        {achievement.label}
+                      </p>
+                      <p className="text-xs md:text-sm text-[var(--neuro-text-secondary)]">
+                        {achievement.detail}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+
+        {/* Skills Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mb-16"
+        >
+          <h3 className="text-2xl font-semibold text-[var(--neuro-text-primary)] mb-8 text-center">Core Skills</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {skills.map((skill, index) => {
               const Icon = skill.icon;
               return (
                 <motion.div
                   key={index}
-                  variants={staggerItem}
-                  whileHover={{ scale: 1.02 }}
-                  className="neuro-card p-4 md:p-6"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.08, y: -4 }}
+                  className="bg-gradient-to-br from-white/60 to-white/30 dark:from-slate-900/40 dark:to-slate-900/20 rounded-xl p-6 text-center border border-slate-200/60 dark:border-slate-700/60 hover:shadow-lg transition-all duration-300 backdrop-blur-sm"
                 >
-                  <div className="flex items-center mb-4">
-                    <div className="neuro-button p-2 md:p-3 mr-3 md:mr-4">
-                      <Icon className="w-5 md:w-6 h-5 md:h-6" style={{ color: skill.color }} />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-[var(--neuro-text-primary)] text-sm md:text-base">
-                        {skill.name}
-                      </h4>
-                      <span className="text-xs md:text-sm text-[var(--neuro-text-secondary)]">
-                        {skill.percentage}%
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="neuro-progress h-2 md:h-3">
-                    <motion.div
-                      variants={progressVariants}
-                      initial="initial"
-                      animate={isInView ? "animate" : "initial"}
-                      custom={skill.percentage}
-                      className="neuro-progress-fill h-full"
-                      style={{ 
-                        background: `linear-gradient(90deg, ${skill.color}, ${skill.color}aa)`
-                      }}
-                    />
-                  </div>
+                  <motion.div whileHover={{ scale: 1.15, rotate: 5 }} className="mb-3">
+                    <Icon className="w-8 h-8 mx-auto" style={{ color: skill.color }} />
+                  </motion.div>
+                  <p className="font-semibold text-[var(--neuro-text-primary)] text-sm md:text-base">
+                    {skill.name}
+                  </p>
                 </motion.div>
               );
             })}
+          </div>
+        </motion.div>
 
-            {/* Tech Stack Cloud */}
-            <motion.div variants={staggerItem} className="neuro-card p-4 md:p-6">
-              <h4 className="font-semibold text-[var(--neuro-text-primary)] mb-4 text-sm md:text-base">
-                Technology Stack
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {techStack.map((tech, index) => (
-                  <motion.span
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                    transition={{ delay: index * 0.05 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    className="neuro-inset px-2 md:px-3 py-1 md:py-2 text-xs md:text-sm font-medium text-[var(--neuro-text-secondary)] cursor-pointer"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Fun Facts & Values */}
-          <motion.div
-            variants={staggerContainer}
-            initial="initial"
-            animate={isInView ? "animate" : "initial"}
-            className="space-y-6"
-          >
-            <motion.h3 variants={staggerItem} className="text-xl md:text-2xl font-semibold text-[var(--neuro-text-primary)] mb-6">
-              What Drives Me
-            </motion.h3>
-
-            <motion.div variants={staggerItem} className="neuro-card p-6 md:p-8">
-              <h4 className="text-lg md:text-xl font-semibold text-[var(--neuro-text-primary)] mb-4">
-                My Journey
-              </h4>
-              <p className="text-[var(--neuro-text-secondary)] leading-relaxed mb-4 text-sm md:text-base">
-                Currently pursuing B.E. in Artificial Intelligence & Data Science at SPPU with a 9.59 CGPA. 
-                I specialize in developing intelligent automation solutions, AI-powered platforms, and innovative mobile applications.
-              </p>
-              <p className="text-[var(--neuro-text-secondary)] leading-relaxed text-sm md:text-base">
-                From designing n8n automation agents for call centers to building Flutter apps with Google Vision OCR integration, 
-                I focus on creating scalable solutions at the intersection of AI, automation, and user experience.
-              </p>
-            </motion.div>
-
-            {/* Current Status */}
-            <motion.div variants={staggerItem} className="neuro-card p-6 md:p-8">
-              <h4 className="text-lg md:text-xl font-semibold text-[var(--neuro-text-primary)] mb-4">
-                Current Focus
-              </h4>
-              <p className="text-[var(--neuro-text-secondary)] leading-relaxed text-sm md:text-base">
-                🔥 Data Science Intern at <strong>CodeWithHarry</strong><br/>
-                📚 Working on Python, Pandas, NumPy, statistics, and end-to-end data science projects<br/>
-                � Katalyst India Scholar - National program empowering women in STEM<br/>
-                💼 Business Associate leading 10-12 member team in health-tech startup<br/>
-                � Shooting Stars Fellow - Youth and community empowerment programs<br/>
-                👨‍💻 Technical Member at Byteminds NGO - Teaching coding and tech support
-              </p>
-            </motion.div>
-
-            {/* Fun Facts Grid */}
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-              {funFacts.map((fact, index) => {
-                const Icon = fact.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    variants={staggerItem}
-                    whileHover={{ 
-                      scale: 1.05,
-                      boxShadow: `0 10px 25px ${fact.color}40`
-                    }}
-                    className="neuro-card p-4 md:p-6 text-center"
-                  >
-                    <div className="neuro-button p-2 md:p-3 mx-auto mb-2 md:mb-3 w-fit">
-                      <Icon className="w-4 md:w-6 h-4 md:h-6" style={{ color: fact.color }} />
-                    </div>
-                    <p className="text-xs md:text-sm font-medium text-[var(--neuro-text-primary)]">
-                      {fact.text}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </div>
+        {/* Tech Stack - Enhanced */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="bg-gradient-to-r from-white/60 to-white/40 dark:from-slate-900/40 dark:to-slate-900/20 rounded-2xl p-8 border border-slate-200/60 dark:border-slate-700/60 hover:shadow-lg transition-all duration-300 backdrop-blur-sm"
+        >
+          <h3 className="text-xl font-semibold text-[var(--neuro-text-primary)] mb-6">Technology Stack</h3>
+          <div className="flex flex-wrap gap-3">
+            {techStack.map((tech, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ scale: 1.12, y: -2 }}
+                className="px-4 py-2 bg-gradient-to-r from-[var(--neuro-accent)]/15 to-[var(--neuro-accent)]/5 text-[var(--neuro-accent)] rounded-full text-sm font-semibold border border-[var(--neuro-accent)]/30 hover:border-[var(--neuro-accent)]/60 hover:shadow-lg transition-all duration-300 cursor-pointer"
+              >
+                {tech}
+              </motion.span>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );
