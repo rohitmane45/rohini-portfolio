@@ -52,7 +52,7 @@ const ProjectsSection: React.FC = () => {
       title: 'Rapid Intensification for Tropical Cyclone',
       shortDescription: 'Deep learning framework for predicting tropical cyclone intensification',
       description: 'Built a deep learning framework focused on rapid intensification (RI) prediction for tropical cyclones by fusing oceanic, atmospheric, and satellite signals, improving lead-time insights for early warning and operational decision support.',
-      image: '/images/cyclone pic.jpg',
+      image: '/images/cyclone%20pic.jpg',
       technologies: ['Deep Learning', 'Tropical Cyclone RI', 'Satellite Data', 'Neural Networks'],
       githubUrl: 'https://github.com/rohinikale2525/Rapid-Intensification-for-tropical-cyclone-tracking-system',
       liveUrl: '#',
@@ -165,7 +165,7 @@ const ProjectsSection: React.FC = () => {
                   const target = e.currentTarget;
                   // Prevent infinite loop if fallback is also missing.
                   target.onerror = null;
-                  target.src = '/images/n8n-automation-agent.png';
+                  target.src = '/images/nutribot.png';
                 }}
               />
             </motion.div>
