@@ -37,15 +37,16 @@ const ProjectsSection: React.FC = () => {
     },
     {
       id: 2,
-      title: 'AetherChat Platform',
-      shortDescription: 'Production-ready scalable chat system with AI-driven conversations',
-      description: 'A production-ready, horizontally scalable chat system delivering AI-driven conversations, robust user management, and a cleanly decoupled backend–frontend architecture—perfect for learning, rapid prototyping, or evolving into an enterprise-grade conversational platform.',
-      image: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=600&h=400&fit=crop',
-      technologies: ['AI/ML', 'Chat System', 'Scalable Architecture', 'Backend/Frontend'],
-      githubUrl: '#',
+      title: 'CosmoSafe — The Cosmetic Analyzer (Flutter App)',
+      shortDescription: 'AI-powered cosmetic analyzer built with Flutter',
+      description: 'An intelligent Flutter application that analyzes cosmetic using Vision OCR and Gemini AI. It performs multi-jurisdiction regulatory analysis to detect toxic ingredients and provides personalized safety recommendations.',
+      image: '/images/Cosmosafe image.png',
+      technologies: ['Flutter', 'Dart', 'Gemini AI', 'Vision OCR'],
+      githubUrl: 'https://github.com/rohinikale2525/Trust-Before-Purchase-Cosmosafe',
       liveUrl: '#',
       featured: true,
-      color: '#ff6b6b'
+      color: '#10b981',
+      impact: 'Empowers users to make informed, safe purchasing decisions instantly'
     },
     {
       id: 3,
@@ -72,6 +73,7 @@ const ProjectsSection: React.FC = () => {
       featured: true,
       color: '#f59e0b'
     }
+
   ];
 
   const isValidUrl = (url: string) => /^https?:\/\//.test(url);
@@ -114,11 +116,10 @@ const ProjectsSection: React.FC = () => {
                 transition={{ delay: idx * 0.1 }}
                 whileHover={{ scale: 1.02, x: 5 }}
                 whileTap={{ scale: 0.98 }}
-                className={`w-full text-left transition-all duration-300 rounded-xl p-6 border-l-4 backdrop-blur-sm ${
-                  selectedId === project.id
-                    ? 'bg-white/60 dark:bg-slate-900/60 border-l-[var(--neuro-accent)] shadow-lg'
-                    : 'bg-white/40 dark:bg-slate-900/20 border-l-transparent hover:border-l-[var(--neuro-accent)]'
-                }`}
+                className={`w-full text-left transition-all duration-300 rounded-xl p-6 border-l-4 backdrop-blur-sm ${selectedId === project.id
+                  ? 'bg-white/60 dark:bg-slate-900/60 border-l-[var(--neuro-accent)] shadow-lg'
+                  : 'bg-white/40 dark:bg-slate-900/20 border-l-transparent hover:border-l-[var(--neuro-accent)]'
+                  }`}
                 style={selectedId === project.id ? { borderColor: `${project.color} !important` } : {}}
               >
                 <div className="flex items-start gap-4">
